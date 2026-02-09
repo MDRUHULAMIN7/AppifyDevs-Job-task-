@@ -12,14 +12,16 @@ import { loadDashboardData } from '@/redux/slices/dashboardSlice';
 import { RevenueLineChart } from '@/components/dashboard/charts/RevenueLineChart';
 import { OrdersBarChart } from '@/components/dashboard/charts/OrdersBarChart';
 import { UserDistributionPieChart } from '@/components/dashboard/charts/UserDistributionPieChart';
+import TrafficSourceChart from '@/components/dashboard/charts/TrafficSourceChart';
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
   const { data, loading, error } = useAppSelector((state) => state.dashboard);
+  const filters = useAppSelector((state) => state.filter);
 
   useEffect(() => {
-    dispatch(loadDashboardData());
-  }, [dispatch]);
+    dispatch(loadDashboardData(filters));
+  }, [dispatch, filters]);
 
   if (error) {
     return (
@@ -29,7 +31,7 @@ export default function DashboardPage() {
             <p className="text-foreground font-semibold mb-4">Error loading dashboard</p>
             <p className="text-sm text-muted-foreground mb-4">{error}</p>
             <button
-              onClick={() => dispatch(loadDashboardData())}
+              onClick={() => dispatch(loadDashboardData(filters))}
               className="px-6 py-2.5 rounded-xl text-sm font-medium text-white transition-all duration-200 hover:opacity-90"
               style={{ backgroundColor: 'var(--color-primary)' }}
             >
@@ -86,6 +88,7 @@ export default function DashboardPage() {
           </div>
           <OrdersBarChart data={data.ordersPerMonth} />
           <UserDistributionPieChart data={data.userDistribution} />
+          <TrafficSourceChart data={data.trafficSources} />
         </div>
       ) : null}
       </div>

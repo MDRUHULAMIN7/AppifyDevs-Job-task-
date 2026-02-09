@@ -58,6 +58,12 @@
       { "type": "Free", "count": 745, "percentage": 59.8 },
       { "type": "Premium", "count": 380, "percentage": 30.5 },
       { "type": "Enterprise", "count": 120, "percentage": 9.7 }
-    ]
+    ],
+    "trafficSources": {
+      "organic": 42,
+      "paid": 28,
+      "social": 18,
+      "referral": 12
+    }
   }
 }

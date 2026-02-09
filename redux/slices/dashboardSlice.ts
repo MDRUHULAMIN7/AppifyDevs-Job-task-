@@ -1,7 +1,7 @@
 // src/lib/redux/slices/dashboardSlice.ts
 
 import { fetchDashboardData } from '@/lib/api/dashboard';
-import { DashboardStats } from '@/types/dashboard';
+import type { DashboardFilters, DashboardStats } from '@/types/dashboard';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 interface DashboardState {
@@ -19,9 +19,9 @@ const initialState: DashboardState = {
 // Async thunk for fetching data
 export const loadDashboardData = createAsyncThunk(
   'dashboard/loadData',
-  async (_, { rejectWithValue }) => {
+  async (filters: DashboardFilters, { rejectWithValue }) => {
     try {
-      const data = await fetchDashboardData();
+      const data = await fetchDashboardData(filters);
       return data;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

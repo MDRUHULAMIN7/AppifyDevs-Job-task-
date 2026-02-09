@@ -23,6 +23,13 @@ export interface UserDistribution {
   percentage: number;
 }
 
+export interface TrafficSources {
+  organic: number;
+  paid: number;
+  social: number;
+  referral: number;
+}
+
 export interface DashboardStats {
   kpis: {
     totalRevenue: KPIData;
@@ -33,6 +40,7 @@ export interface DashboardStats {
   revenueOverTime: RevenueDataPoint[];
   ordersPerMonth: OrderDataPoint[];
   userDistribution: UserDistribution[];
+  trafficSources: TrafficSources;
 }
 
 export type DateRange = '7days' | '30days' | '12months';

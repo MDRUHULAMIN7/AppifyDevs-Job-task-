@@ -2,8 +2,9 @@
 
 'use client';
 
-import { Card } from '@/components/ui/Card';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { motion } from 'framer-motion';
+import { TrendingUp } from 'lucide-react';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import type { RevenueDataPoint } from '@/types/dashboard';
 
 interface RevenueLineChartProps {
@@ -11,67 +12,88 @@ interface RevenueLineChartProps {
 }
 
 export function RevenueLineChart({ data }: RevenueLineChartProps) {
-  const gridColor = 'var(--color-border)';
-  const axisColor = 'var(--color-muted-foreground)';
-  const tooltipBg = 'var(--color-card)';
-  const tooltipBorder = 'var(--color-border)';
-  const tooltipText = 'var(--color-foreground)';
-  const lineColor = 'var(--color-primary)';
+  const total = data.reduce((sum, item) => sum + item.revenue, 0);
 
   return (
-    <Card className="p-6">
-      <h3 className="text-lg font-semibold text-foreground mb-4">
-        Revenue Over Time
-      </h3>
-      <div className="h-75">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, delay: 0.2 }}
+      className="rounded-2xl border border-border/50 bg-card p-6"
+    >
+      <div className="flex items-start justify-between mb-6">
+        <div>
+          <h3 className="text-sm font-bold text-foreground">Revenue Over Time</h3>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Total: ${total.toLocaleString()}
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+          <TrendingUp className="h-3 w-3" />
+          <span className="text-xs font-semibold">+12.5%</span>
+        </div>
+      </div>
+      <div className="h-70">
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+          <AreaChart data={data}>
+            <defs>
+              <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="hsl(250, 85%, 60%)" stopOpacity={0.3} />
+                <stop offset="100%" stopColor="hsl(250, 85%, 60%)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="currentColor"
+              className="text-border/30"
+              vertical={false}
+            />
             <XAxis
               dataKey="month"
-              stroke={axisColor}
-              fontSize={12}
-              axisLine={{ stroke: axisColor }}
-              tick={{ fill: axisColor }}
-              tickLine={{ stroke: axisColor }}
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
+              dy={8}
             />
             <YAxis
-              stroke={axisColor}
-              fontSize={12}
-              tickFormatter={(value) => `$${value / 1000}k`}
-              axisLine={{ stroke: axisColor }}
-              tick={{ fill: axisColor }}
-              tickLine={{ stroke: axisColor }}
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 12, fill: 'var(--color-muted-foreground)' }}
+              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+              dx={-4}
             />
             <Tooltip
-              wrapperStyle={{ color: tooltipText }}
-              contentStyle={{
-                backgroundColor: tooltipBg,
-                border: `1px solid ${tooltipBorder}`,
-                borderRadius: '8px',
-                color: tooltipText,
+              content={({ active, payload, label }) => {
+                if (!active || !payload?.length) return null;
+                return (
+                  <div className="rounded-xl border border-border/50 bg-card/95 backdrop-blur-xl px-4 py-3 shadow-xl">
+                    <p className="text-xs font-medium text-muted-foreground mb-1">
+                      {label}
+                    </p>
+                    <p className="text-sm font-bold text-foreground">
+                      ${payload[0].value?.toLocaleString()}
+                    </p>
+                  </div>
+                );
               }}
-              labelStyle={{ color: tooltipText }}
-              itemStyle={{ color: tooltipText }}
-              cursor={{ stroke: axisColor }}
-              formatter={(value) => [
-                typeof value === 'number'
-                  ? `$${value.toLocaleString()}`
-                  : `$${Number(value) || 0}`,
-                'Revenue',
-              ]}
             />
-            <Line
+            <Area
               type="monotone"
               dataKey="revenue"
-              stroke={lineColor}
-              strokeWidth={2}
-              dot={{ fill: lineColor, r: 4 }}
-              activeDot={{ r: 6 }}
+              stroke="hsl(250, 85%, 60%)"
+              strokeWidth={2.5}
+              fill="url(#revenueGradient)"
+              dot={false}
+              activeDot={{
+                r: 5,
+                fill: 'hsl(250, 85%, 60%)',
+                stroke: 'white',
+                strokeWidth: 2,
+              }}
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </div>
-    </Card>
+    </motion.div>
   );
 }
