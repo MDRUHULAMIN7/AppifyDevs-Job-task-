@@ -9,6 +9,9 @@ import { KPICard } from '@/components/dashboard/KPICard';
 import { KPICardSkeleton } from '@/components/dashboard/KPICardSkeleton';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { loadDashboardData } from '@/redux/slices/dashboardSlice';
+import { RevenueLineChart } from '@/components/dashboard/charts/RevenueLineChart';
+import { OrdersBarChart } from '@/components/dashboard/charts/OrdersBarChart';
+import { UserDistributionPieChart } from '@/components/dashboard/charts/UserDistributionPieChart';
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
@@ -69,28 +72,22 @@ export default function DashboardPage() {
           ) : null}
         </div>
 
-        {/* Charts */}
-        {loading ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-            <div className="lg:col-span-2">
-              <KPICardSkeleton />
-            </div>
-            <KPICardSkeleton />
-            <KPICardSkeleton />
+  {/* Charts */}
+      {loading ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <KPICardSkeleton />
+          <KPICardSkeleton />
+          <KPICardSkeleton />
+        </div>
+      ) : data ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="lg:col-span-2">
+            <RevenueLineChart data={data.revenueOverTime} />
           </div>
-        ) : data ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
-            <div className="lg:col-span-2 p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
-              <p className="text-sm text-muted-foreground">Revenue Chart Coming Soon...</p>
-            </div>
-            <div className="p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
-              <p className="text-sm text-muted-foreground">Orders Chart Coming Soon...</p>
-            </div>
-            <div className="p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
-              <p className="text-sm text-muted-foreground">Distribution Chart Coming Soon...</p>
-            </div>
-          </div>
-        ) : null}
+          <OrdersBarChart data={data.ordersPerMonth} />
+          <UserDistributionPieChart data={data.userDistribution} />
+        </div>
+      ) : null}
       </div>
     </MainLayout>
   );

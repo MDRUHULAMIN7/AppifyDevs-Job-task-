@@ -1,4 +1,10 @@
+import type { Metadata } from 'next';
 import { MainLayout } from '@/components/layout/MainLayout';
+
+export const metadata: Metadata = {
+  title: 'Customers',
+  description: 'Customer directory with subscription plans and recent activity.',
+};
 
 const customers = [
   { name: 'Sarah Miles', plan: 'Premium', activity: '2 days ago' },

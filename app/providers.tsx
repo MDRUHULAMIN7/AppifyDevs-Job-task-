@@ -6,6 +6,7 @@ import { ReactNode, useEffect } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { setDarkMode } from '@/redux/slices/themeSlice';
 import { store } from '@/redux/store';
+import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 
 // Internal component যা Redux এর ভেতরে আছে
 function ThemeInitializer({ children }: { children: ReactNode }) {
@@ -29,10 +30,12 @@ function ThemeInitializer({ children }: { children: ReactNode }) {
 // Main Providers component
 export function Providers({ children }: { children: ReactNode }) {
   return (
-    <Provider store={store}>
-      <ThemeInitializer>
-        {children}
-      </ThemeInitializer>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <ThemeInitializer>
+          {children}
+        </ThemeInitializer>
+      </Provider>
+    </ErrorBoundary>
   );
 }
