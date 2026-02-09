@@ -24,6 +24,8 @@
   --color-purple-500: oklch(55% 0.22 298);
 
   /* Spacing, radius etc */
+  --spacing-18: 4.5rem;
+  --spacing-65: 16.25rem;
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;

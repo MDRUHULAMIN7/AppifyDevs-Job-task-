@@ -1,4 +1,4 @@
-
+// src/components/layout/Header.tsx
 
 'use client';
 
@@ -40,7 +40,10 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/80 backdrop-blur-xl px-4 lg:px-6" style={{ borderColor: 'var(--color-border)' }}>
+    <header
+      className="sticky top-0 z-30 flex h-16 items-center justify-between border-b bg-background/80 backdrop-blur-xl px-4 lg:px-6"
+      style={{ borderColor: 'var(--color-border)' }}
+    >
       {/* Left */}
       <div className="flex items-center gap-3">
         <button
@@ -52,9 +55,7 @@ export function Header() {
         </button>
 
         <div className="hidden lg:block">
-          <h1 className="text-lg font-bold text-foreground tracking-tight">
-            Dashboard
-          </h1>
+          <h1 className="text-lg font-bold text-foreground tracking-tight">Dashboard</h1>
           <p className="text-xs text-muted-foreground">Welcome back, Admin</p>
         </div>
       </div>
@@ -83,7 +84,10 @@ export function Header() {
             }}
           >
             <Command className="h-3 w-3" style={{ color: 'var(--color-muted-foreground)' }} />
-            <span className="text-[10px] font-medium" style={{ color: 'var(--color-muted-foreground)' }}>
+            <span
+              className="text-[10px] font-medium"
+              style={{ color: 'var(--color-muted-foreground)' }}
+            >
               K
             </span>
           </div>
@@ -168,7 +172,10 @@ export function Header() {
                     <div>
                       <p className="text-sm font-medium text-foreground">{n.title}</p>
                       <p className="text-xs text-muted-foreground mt-0.5">{n.desc}</p>
-                      <p className="text-[10px] mt-1" style={{ color: 'var(--color-muted-foreground)' }}>
+                      <p
+                        className="text-[10px] mt-1"
+                        style={{ color: 'var(--color-muted-foreground)' }}
+                      >
                         {n.time}
                       </p>
                     </div>
@@ -185,7 +192,10 @@ export function Header() {
         </div>
 
         {/* Divider */}
-        <div className="h-6 w-px bg-border mx-1 hidden sm:block" style={{ backgroundColor: 'var(--color-border)' }} />
+        <div
+          className="h-6 w-px bg-border mx-1 hidden sm:block"
+          style={{ backgroundColor: 'var(--color-border)' }}
+        />
 
         {/* Profile */}
         <div ref={profileRef} className="relative">
@@ -196,7 +206,8 @@ export function Header() {
             <div
               className="h-8 w-8 rounded-xl flex items-center justify-center text-white font-semibold text-xs shadow-md"
               style={{
-                background: 'linear-gradient(to bottom right, var(--color-violet-500), var(--color-indigo-600))',
+                background:
+                  'linear-gradient(to bottom right, var(--color-violet-500), var(--color-indigo-600))',
               }}
             >
               AD

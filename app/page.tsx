@@ -9,9 +9,6 @@ import { KPICard } from '@/components/dashboard/KPICard';
 import { KPICardSkeleton } from '@/components/dashboard/KPICardSkeleton';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { loadDashboardData } from '@/redux/slices/dashboardSlice';
-// import { RevenueLineChart } from '@/components/dashboard/charts/RevenueLineChart';
-// import { OrdersBarChart } from '@/components/dashboard/charts/OrdersBarChart';
-// import { UserDistributionPieChart } from '@/components/dashboard/charts/UserDistributionPieChart';
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();
@@ -24,12 +21,14 @@ export default function DashboardPage() {
   if (error) {
     return (
       <MainLayout>
-        <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-          <div className="text-center">
-            <p className="text-red-600 font-medium mb-2">Error loading dashboard</p>
+        <div className="flex items-center justify-center min-h-[calc(100vh-200px)]">
+          <div className="text-center p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
+            <p className="text-foreground font-semibold mb-4">Error loading dashboard</p>
+            <p className="text-sm text-muted-foreground mb-4">{error}</p>
             <button
               onClick={() => dispatch(loadDashboardData())}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+              className="px-6 py-2.5 rounded-xl text-sm font-medium text-white transition-all duration-200 hover:opacity-90"
+              style={{ backgroundColor: 'var(--color-primary)' }}
             >
               Retry
             </button>
@@ -41,43 +40,58 @@ export default function DashboardPage() {
 
   return (
     <MainLayout>
-      <FilterSection />
+      <div className="space-y-6 ">
+        {/* Page Title */}
+        <div className="mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Analytics Overview</h2>
+          <p className="text-sm text-muted-foreground">Track your business performance</p>
+        </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        {/* Filters */}
+        <FilterSection />
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {loading ? (
+            <>
+              <KPICardSkeleton />
+              <KPICardSkeleton />
+              <KPICardSkeleton />
+              <KPICardSkeleton />
+            </>
+          ) : data ? (
+            <>
+              <KPICard data={data.kpis.totalRevenue} />
+              <KPICard data={data.kpis.totalUsers} />
+              <KPICard data={data.kpis.totalOrders} />
+              <KPICard data={data.kpis.conversionRate} />
+            </>
+          ) : null}
+        </div>
+
+        {/* Charts */}
         {loading ? (
-          <>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+            <div className="lg:col-span-2">
+              <KPICardSkeleton />
+            </div>
             <KPICardSkeleton />
             <KPICardSkeleton />
-            <KPICardSkeleton />
-            <KPICardSkeleton />
-          </>
+          </div>
         ) : data ? (
-          <>
-            <KPICard data={data.kpis.totalRevenue} />
-            <KPICard data={data.kpis.totalUsers} />
-            <KPICard data={data.kpis.totalOrders} />
-            <KPICard data={data.kpis.conversionRate} />
-          </>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+            <div className="lg:col-span-2 p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
+              <p className="text-sm text-muted-foreground">Revenue Chart Coming Soon...</p>
+            </div>
+            <div className="p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
+              <p className="text-sm text-muted-foreground">Orders Chart Coming Soon...</p>
+            </div>
+            <div className="p-6 rounded-2xl border" style={{ borderColor: 'var(--color-border)', backgroundColor: 'var(--color-card)' }}>
+              <p className="text-sm text-muted-foreground">Distribution Chart Coming Soon...</p>
+            </div>
+          </div>
         ) : null}
       </div>
-
-      {/* Charts */}
-      {loading ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <KPICardSkeleton />
-          <KPICardSkeleton />
-          <KPICardSkeleton />
-        </div>
-      ) : data ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="lg:col-span-2">
-            {/* <RevenueLineChart data={data.revenueOverTime} /> */}
-         </div>
-          {/* <OrdersBarChart data={data.ordersPerMonth} /> */}
-          {/* <UserDistributionPieChart data={data.userDistribution} />  */}
-        </div>
-      ) :null}
     </MainLayout>
   );
 }

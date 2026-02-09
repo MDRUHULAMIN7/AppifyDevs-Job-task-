@@ -42,9 +42,11 @@ export function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-full flex-col bg-card/95 backdrop-blur-xl transition-all duration-300 ease-out lg:relative lg:z-auto border-r ${
-          sidebarOpen ? 'w-65' : 'w-0 lg:w-18'
-        } ${!sidebarOpen && 'overflow-hidden lg:overflow-visible'}`}
+        className={`fixed left-0 top-0 z-50 flex h-full flex-col bg-card/95 backdrop-blur-xl transition-all duration-300 ease-out border-r ${
+          sidebarOpen ? 'w-65' : 'w-0'
+        } ${sidebarCollapsed ? 'lg:w-18' : 'lg:w-65'} ${
+          !sidebarOpen ? 'overflow-hidden lg:overflow-visible' : ''
+        }`}
         style={{ borderColor: 'var(--color-border)' }}
       >
         {/* Logo */}
@@ -57,13 +59,16 @@ export function Sidebar() {
             <div
               className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white font-bold text-sm shadow-lg"
               style={{
-                background: 'linear-gradient(to bottom right, var(--color-primary), var(--color-purple-500))',
+                background:
+                  'linear-gradient(to bottom right, var(--color-primary), var(--color-purple-500))',
               }}
             >
               <Sparkles className="h-4 w-4" />
             </div>
             <div className="whitespace-nowrap">
-              <span className="font-bold text-foreground text-[15px] tracking-tight">Analytics</span>
+              <span className="font-bold text-foreground text-[15px] tracking-tight">
+                Analytics
+              </span>
               <span className="font-bold text-primary text-[15px]">Hub</span>
             </div>
           </div>
@@ -112,7 +117,9 @@ export function Sidebar() {
               }
             >
               <item.icon
-                className={`h-4.5 w-4.5 shrink-0 ${sidebarCollapsed && 'lg:mx-auto'}`}
+                className={`h-4.5 w-4.5 shrink-0 ${
+                  sidebarCollapsed && 'lg:mx-auto'
+                }`}
               />
               <span
                 className={`whitespace-nowrap transition-opacity duration-200 ${
