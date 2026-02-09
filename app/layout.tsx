@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   applicationName: "Appify Analytics",
   keywords: ["analytics", "dashboard", "orders", "revenue", "customers"],
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.svg",
   },
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },

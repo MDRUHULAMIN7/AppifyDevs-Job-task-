@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AppifyDevs Analytics Dashboard
+
+Responsive admin analytics dashboard built with Next.js, TypeScript, Redux, Tailwind CSS, and Recharts.
+
+## Live Demo
+- https://appify-devs-job-task.vercel.app/
+
+## Features
+- Collapsible sidebar + top header layout
+- KPI cards with trend indicators
+- Revenue (area), Orders (bar), User Distribution (pie), and Traffic Sources charts
+- Filter controls (date range + user type) that update dashboard data
+- Skeleton loading, error states, and animated transitions
+- Light/Dark theme support
+
+## Tech Stack
+- Framework: Next.js (App Router)
+- Language: TypeScript
+- Styling: Tailwind CSS
+- Charts: Recharts
+- State Management: Redux Toolkit
+- Data: Mock JSON + simulated API delay
+- Animations: Framer Motion
 
 ## Getting Started
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Run the dev server:
+   ```bash
+   npm run dev
+   ```
+3. Open `http://localhost:3000`
 
-First, run the development server:
+## Architecture Notes
+- **State** lives in `redux/` slices (`dashboard`, `filter`, `theme`).
+- **Data** is served from `data/mockData.json` and shaped in `lib/api/dashboard.ts`.
+- **Components** are organized by feature (`components/dashboard/`, `components/layout/`, `components/ui/`).
+- **Charts** live in `components/dashboard/charts/`.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Filters Behavior
+- Date range controls how many recent points are shown:
+  - `7days` → last 3 points
+  - `30days` → last 6 points
+  - `12months` → all 12 points
+- User type filters user distribution and scales KPI values proportionally.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Assumptions
+- Date range options are mapped to available mock data points.
+- User type filter adjusts KPI values proportionally for demo purposes.
+- Traffic Sources are percentages and always sum to ~100.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
+- `npm run dev` – start dev server
+- `npm run build` – production build
+- `npm run start` – start production server
+- `npm run lint` – run ESLint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
+Deploy on Vercel or Netlify. Add your live URL in the **Live Demo** section.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Test Credentials
+- Not applicable (no auth implemented).
