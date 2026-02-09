@@ -1,0 +1,63 @@
+{
+  "stats": {
+    "kpis": {
+      "totalRevenue": {
+        "title": "Total Revenue",
+        "value": "$54,230",
+        "change": 12.5,
+        "trend": "up"
+      },
+      "totalUsers": {
+        "title": "Total Users",
+        "value": "1,245",
+        "change": 8.2,
+        "trend": "up"
+      },
+      "totalOrders": {
+        "title": "Orders",
+        "value": "342",
+        "change": -3.1,
+        "trend": "down"
+      },
+      "conversionRate": {
+        "title": "Conversion Rate",
+        "value": "4.3%",
+        "change": 2.4,
+        "trend": "up"
+      }
+    },
+    "revenueOverTime": [
+      { "month": "Jan", "revenue": 4200 },
+      { "month": "Feb", "revenue": 3800 },
+      { "month": "Mar", "revenue": 5100 },
+      { "month": "Apr", "revenue": 4600 },
+      { "month": "May", "revenue": 5400 },
+      { "month": "Jun", "revenue": 6200 },
+      { "month": "Jul", "revenue": 5800 },
+      { "month": "Aug", "revenue": 6500 },
+      { "month": "Sep", "revenue": 7100 },
+      { "month": "Oct", "revenue": 6800 },
+      { "month": "Nov", "revenue": 7500 },
+      { "month": "Dec", "revenue": 8200 }
+    ],
+    "ordersPerMonth": [
+      { "month": "Jan", "orders": 28 },
+      { "month": "Feb", "orders": 24 },
+      { "month": "Mar", "orders": 32 },
+      { "month": "Apr", "orders": 29 },
+      { "month": "May", "orders": 35 },
+      { "month": "Jun", "orders": 38 },
+      { "month": "Jul", "orders": 33 },
+      { "month": "Aug", "orders": 40 },
+      { "month": "Sep", "orders": 42 },
+      { "month": "Oct", "orders": 38 },
+      { "month": "Nov", "orders": 45 },
+      { "month": "Dec", "orders": 48 }
+    ],
+    "userDistribution": [
+      { "type": "Free", "count": 745, "percentage": 59.8 },
+      { "type": "Premium", "count": 380, "percentage": 30.5 },
+      { "type": "Enterprise", "count": 120, "percentage": 9.7 }
+    ]
+  }
+}
