@@ -1,26 +1,105 @@
+/* src/app/globals.css */
+
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Theme Configuration */
+@theme {
+  /* Colors */
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(9% 0 0);
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(9% 0 0);
+  --color-primary: oklch(58% 0.22 262);
+  --color-primary-foreground: oklch(98% 0 0);
+  --color-accent: oklch(96% 0 0);
+  --color-accent-foreground: oklch(11% 0 0);
+  --color-muted: oklch(96% 0 0);
+  --color-muted-foreground: oklch(47% 0 0);
+  --color-border: oklch(91% 0 0);
+  --color-rose-500: oklch(58% 0.22 12);
+  --color-emerald-400: oklch(72% 0.18 155);
+  --color-amber-400: oklch(77% 0.15 75);
+  --color-violet-500: oklch(55% 0.25 290);
+  --color-indigo-600: oklch(48% 0.19 272);
+  --color-purple-500: oklch(55% 0.22 298);
+
+  /* Spacing, radius etc */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Dark Mode */
+.dark {
+  --color-background: oklch(9% 0 0);
+  --color-foreground: oklch(98% 0 0);
+  --color-card: oklch(9% 0 0);
+  --color-card-foreground: oklch(98% 0 0);
+  --color-primary: oklch(66% 0.25 262);
+  --color-primary-foreground: oklch(11% 0 0);
+  --color-accent: oklch(18% 0 0);
+  --color-accent-foreground: oklch(98% 0 0);
+  --color-muted: oklch(18% 0 0);
+  --color-muted-foreground: oklch(65% 0 0);
+  --color-border: oklch(18% 0 0);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base Styles */
+* {
+  border-color: var(--color-border);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .text-foreground {
+    color: var(--color-foreground);
+  }
+  
+  .text-muted-foreground {
+    color: var(--color-muted-foreground);
+  }
+  
+  .text-primary {
+    color: var(--color-primary);
+  }
+  
+  .bg-background {
+    background-color: var(--color-background);
+  }
+  
+  .bg-card {
+    background-color: var(--color-card);
+  }
+  
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  
+  .bg-muted {
+    background-color: var(--color-muted);
+  }
+  
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  
+  .border-border {
+    border-color: var(--color-border);
+  }
+  
+  .hover\:bg-accent:hover {
+    background-color: var(--color-accent);
+  }
+  
+  .hover\:text-foreground:hover {
+    color: var(--color-foreground);
+  }
 }
