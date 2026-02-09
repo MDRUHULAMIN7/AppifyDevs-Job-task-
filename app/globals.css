@@ -105,3 +105,6 @@ body {
     color: var(--color-foreground);
   }
 }
+button{
+  cursor: pointer;
+}

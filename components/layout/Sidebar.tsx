@@ -2,6 +2,8 @@
 
 'use client';
 
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setSidebarOpen, toggleSidebar } from '@/redux/slices/themeSlice';
 import {
@@ -15,20 +17,22 @@ import {
   X,
   Sparkles,
   LogOut,
+  ChevronRight,
 } from 'lucide-react';
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', active: true },
-  { icon: BarChart3, label: 'Analytics', active: false },
-  { icon: ShoppingCart, label: 'Orders', active: false },
-  { icon: Users, label: 'Customers', active: false },
-  { icon: Settings, label: 'Settings', active: false },
-  { icon: HelpCircle, label: 'Help', active: false },
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/' },
+  { icon: BarChart3, label: 'Analytics', href: '/analytics' },
+  { icon: ShoppingCart, label: 'Orders', href: '/orders' },
+  { icon: Users, label: 'Customers', href: '/customers' },
+  { icon: Settings, label: 'Settings', href: '/settings' },
+  { icon: HelpCircle, label: 'Help', href: '/help' },
 ];
 
 export function Sidebar() {
   const dispatch = useAppDispatch();
   const { sidebarOpen, sidebarCollapsed } = useAppSelector((state) => state.theme);
+  const pathname = usePathname();
 
   return (
     <>
@@ -49,11 +53,20 @@ export function Sidebar() {
         }`}
         style={{ borderColor: 'var(--color-border)' }}
       >
-        {/* Logo */}
-        <div className="flex h-16 items-center justify-between px-4">
-          <div
-            className={`flex items-center gap-3 transition-opacity duration-200 ${
-              sidebarCollapsed && 'lg:opacity-0'
+        {/* Logo and open button*/}
+        <div className="flex h-16 items-center  justify-between px-4">
+         { sidebarCollapsed ?
+          <button
+            onClick={() => dispatch(toggleSidebar())}
+            className="hidden lg:flex h-10 w-10 items-center justify-center   rounded-xl  bg-background/80 text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-foreground"
+            style={{ borderColor: 'var(--color-border)' }}
+          >
+            <ChevronRight
+              className={`h-6 w-6 transition-transform duration-300 `}
+            />
+          </button> :   <div
+            className={`flex items-center gap-3 transition-opacity duration-200 
+              '
             }`}
           >
             <div
@@ -71,18 +84,18 @@ export function Sidebar() {
               </span>
               <span className="font-bold text-primary text-[15px]">Hub</span>
             </div>
-          </div>
+          </div>   }
 
-          <button
+{/* button for  collaps */}
+ { !sidebarCollapsed &&  <button
             onClick={() => dispatch(toggleSidebar())}
-            className="hidden lg:flex h-7 w-7 items-center justify-center rounded-lg hover:bg-accent text-muted-foreground transition-all duration-200 hover:text-foreground"
+            className="hidden lg:flex h-8 w-8 items-center justify-center rounded-xl border bg-background/80 text-muted-foreground transition-all duration-200 hover:bg-accent hover:text-foreground"
+            style={{ borderColor: 'var(--color-border)' }}
           >
             <ChevronLeft
-              className={`h-4 w-4 transition-transform duration-300 ${
-                sidebarCollapsed && 'rotate-180'
-              }`}
+              className={`h-4 w-4 transition-transform duration-300`}
             />
-          </button>
+          </button> }
 
           <button
             onClick={() => dispatch(setSidebarOpen(false))}
@@ -93,28 +106,33 @@ export function Sidebar() {
         </div>
 
         {/* Nav */}
-        <nav className="flex-1 space-y-1 px-3 py-4">
+        <nav className="flex-1 space-y-1 px-3 py-4 ">
           {!sidebarCollapsed && (
             <p className="px-3 mb-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground/60">
               Main Menu
             </p>
+            
           )}
-          {navItems.map((item) => (
-            <button
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+            <Link
               key={item.label}
               className={`group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
-                item.active
+                isActive
                   ? 'text-white shadow-lg'
                   : 'text-muted-foreground hover:bg-accent hover:text-foreground'
               }`}
               style={
-                item.active
+                isActive
                   ? {
                       background:
                         'linear-gradient(to right, var(--color-primary), var(--color-primary))',
                     }
                   : {}
               }
+              onClick={() => dispatch(setSidebarOpen(false))}
+              href={item.href}
             >
               <item.icon
                 className={`h-4.5 w-4.5 shrink-0 ${
@@ -128,11 +146,11 @@ export function Sidebar() {
               >
                 {item.label}
               </span>
-              {item.active && !sidebarCollapsed && (
+              {isActive && !sidebarCollapsed && (
                 <div className="ml-auto h-1.5 w-1.5 rounded-full bg-white/80" />
               )}
-            </button>
-          ))}
+            </Link>
+          )})}
         </nav>
 
         {/* Bottom User */}
