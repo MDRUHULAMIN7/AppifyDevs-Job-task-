@@ -1,4 +1,4 @@
-// src/components/dashboard/charts/OrdersBarChart.tsx
+
 
 'use client';
 

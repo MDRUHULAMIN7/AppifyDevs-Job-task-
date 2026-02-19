@@ -46,16 +46,16 @@ export default function DashboardPage() {
   return (
     <MainLayout>
       <div className="space-y-6 ">
-        {/* Page Title */}
+       
         <div className="mb-6">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Analytics Overview</h2>
           <p className="text-sm text-muted-foreground">Track your business performance</p>
         </div>
 
-        {/* Filters */}
+        
         <FilterSection />
 
-        {/* KPI Cards */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {loading ? (
             <>

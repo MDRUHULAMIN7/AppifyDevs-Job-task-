@@ -60,7 +60,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Center: Search */}
       <div className="hidden md:flex items-center max-w-md flex-1 mx-8">
         <div className="relative w-full group">
           <Search
@@ -94,7 +93,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Right */}
       <div className="flex items-center gap-1.5">
         {/* Theme Toggle */}
         <button

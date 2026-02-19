@@ -16,7 +16,6 @@ const initialState: DashboardState = {
   error: null,
 };
 
-// Async thunk for fetching data
 export const loadDashboardData = createAsyncThunk(
   'dashboard/loadData',
   async (filters: DashboardFilters, { rejectWithValue }) => {

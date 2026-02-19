@@ -8,7 +8,6 @@ import { setDarkMode } from '@/redux/slices/themeSlice';
 import { store } from '@/redux/store';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 
-// Internal component যা Redux এর ভেতরে আছে
 function ThemeInitializer({ children }: { children: ReactNode }) {
   const dispatch = useAppDispatch();
 

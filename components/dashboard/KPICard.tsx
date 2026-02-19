@@ -98,7 +98,7 @@ export function KPICard({ data }: KPICardProps) {
 
       <div className="absolute bottom-0 left-0 right-0 h-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <div
-          className={`${config.gradient.replace('bg-gradient-to-br', 'bg-gradient-to-r')} h-full rounded-b-2xl`}
+          className={`${config.gradient.replace('bg-linear-to-br', 'bg-linear-to-r')} h-full rounded-b-2xl`}
           style={{ opacity: 0.6 }}
         />
       </div>
